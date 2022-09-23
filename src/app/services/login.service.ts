@@ -19,7 +19,7 @@ export class LoginService {
       .pipe(
         switchMap((user: User | undefined) => {
           // Create new user if it doesn't exist
-          if(user === undefined) {
+          if(typeof user === 'undefined') {
             return this.createUser(username);
           }
           return of(user);

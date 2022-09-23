@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize } from 'rxjs';
+import { BehaviorSubject, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon/pokemon.model';
+import { PokemonResponse } from '../models/pokemon/pokemonResponse';
 
 const { apiPokemon } = environment;
 
@@ -11,13 +12,14 @@ const { apiPokemon } = environment;
 })
 export class PokemonCatalogueService {
 
-  private _pokemons: Pokemon[] = [];
+  private readonly _pokemons = new BehaviorSubject<Pokemon[]>([]);
+  readonly _pokemon$ = this._pokemons.asObservable();
   private _error: string = "";
   private _loading: boolean = false;
 
   
   get pokemons(): Pokemon[] {
-    return this._pokemons;
+    return this._pokemons.getValue();
   }
 
   get error(): string {
@@ -32,15 +34,15 @@ export class PokemonCatalogueService {
 
   public findAllPokemon(): void {
     this._loading = true;
-    this.http.get<Pokemon[]>(apiPokemon)
+    this.http.get<PokemonResponse>(apiPokemon)
       .pipe(
         finalize(() => {
           this._loading = false;
         })
       )
       .subscribe({
-        next: (pokemons: Pokemon[]) => {
-          this._pokemons = pokemons;
+        next: (pokemons: PokemonResponse) => {
+          this._pokemons.next(pokemons.results)
         },
         error: (error: HttpErrorResponse) => {
           this._error = error.message;

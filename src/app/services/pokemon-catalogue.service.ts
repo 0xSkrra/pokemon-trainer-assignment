@@ -4,7 +4,6 @@ import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon/pokemon.model';
 
-
 const { apiPokemon } = environment;
 
 @Injectable({
@@ -16,6 +15,7 @@ export class PokemonCatalogueService {
   private _error: string = "";
   private _loading: boolean = false;
 
+  
   get pokemons(): Pokemon[] {
     return this._pokemons;
   }

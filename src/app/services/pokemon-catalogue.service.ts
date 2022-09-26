@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon/pokemon.model';
 import { PokemonResponse } from '../models/pokemon/pokemonResponse';
 
-const { apiPokemon } = environment;
+
+const { apiPokemon, apiPokemonImgUrl } = environment;
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,15 @@ export class PokemonCatalogueService {
       )
       .subscribe({
         next: (pokemons: PokemonResponse) => {
+          //iterate url props on pokemon to be img url
+          pokemons.results.forEach( (p) => {
+            // simplest solution to getting the numbers since they can be single, double, triple digit etc?
+            const pokemonUrlArr = p.url.split('/')
+            const pokemonUrlId = pokemonUrlArr[pokemonUrlArr.length -2]
+            // set url to img on url prop
+            p.url = apiPokemonImgUrl + pokemonUrlId + ".png"
+          })
+          // set results 
           this._pokemons.next(pokemons.results)
         },
         error: (error: HttpErrorResponse) => {

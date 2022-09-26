@@ -14,6 +14,7 @@ export class LandingPage {
     private readonly userService: UserService
     
     ) {
+      // make sure landing page can not be loaded if user is logged in
       if(typeof userService.user !== 'undefined'){
         router.navigateByUrl("/trainer")
       }

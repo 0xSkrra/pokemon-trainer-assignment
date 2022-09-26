@@ -21,6 +21,7 @@ export class PokemonCatalogueService {
   private _error: string = "";
   private _loading: boolean = false;
 
+  
   get pokemons(): Pokemon[] {
     if(this._pokemons.getValue().length < 1){
       this.findAllPokemon()

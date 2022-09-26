@@ -1,2 +1,27 @@
 <app-navbar></app-navbar>
-<p>trainer works!</p>
+<div class>
+    <div class="
+    mx-auto max-w-2xl py-16 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h1 class="text-5xl font-bold tracking-tight text-gray-900">Welcome Trainer!</h1>
+    </div>
+
+    <div class="mx-auto max-w-2xl pb-10 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class=" inline-block text-2xl font-bold text-gray-900">Username: </h2>
+        <p class="inline-block text-2xl">&nbsp;{{username}}</p>
+    </div>
+
+    <div class="mx-auto pb-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class=" inline-block text-2xl font-bold text-gray-900">Pokemon's collected: </h2>
+        <p class="inline-block text-2xl">&nbsp;{{collectionSize}}</p>
+    </div>
+
+    <div class="
+    mx-auto max-w-2xl pb-16 px-6 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="text-4xl sm:py-10 font-bold tracking-tight text-gray-900">Collection</h2>
+        <div class="italic text-lg" *ngIf="collectionSize==0">
+            <p>You have not collected any pokemon's yet..</p>
+            <p>Go to the Pokemon Catalogue to start your collection!</p>
+        </div>
+        <app-pokemon-list [pokemons]="collection"></app-pokemon-list>
+    </div>
+</div>

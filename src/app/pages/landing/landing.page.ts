@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-landing',
@@ -8,10 +9,18 @@ import { Router } from '@angular/router';
 })
 export class LandingPage {
 
-  constructor(private readonly router: Router) { }
+  constructor(
+    private readonly router: Router,
+    private readonly userService: UserService
+    
+    ) {
+      if(typeof userService.user !== 'undefined'){
+        router.navigateByUrl("/trainer")
+      }
+     }
 
   handleLogin(): void {
-    this.router.navigateByUrl("/pokemon-catalogue")
+    this.router.navigateByUrl("/trainer")
   }
 
 }

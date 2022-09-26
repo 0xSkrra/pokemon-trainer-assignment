@@ -4,14 +4,5 @@ export interface User {
     id: number;
     username: string;
     //isAuthenticated: boolean;
-    pokemonCollection: Pokemon[];
+    Pokemon: Pokemon[];
 }
-
-/*
-export const defaultUser: User ={
-    id: -1,
-    username: "",
-    isAuthenticated: false,
-    pokemonCollection: []
-}
-*/

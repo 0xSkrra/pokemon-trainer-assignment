@@ -1,13 +1,15 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StorageKeys } from '../enums/storage-keys.enum';
 import { Pokemon } from '../models/pokemon/pokemon.model';
 import { PokemonResponse } from '../models/pokemon/pokemonResponse';
+import { User } from '../models/user/user.model';
 import { StorageUtil } from '../utils/storage.util';
 
 
-const { apiPokemon, apiPokemonImgUrl } = environment;
+const { apiPokemon, apiPokemonImgUrl, apiUsers, apiKey} = environment;
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,33 @@ export class PokemonCatalogueService {
     if(typeof storagePokemons !== 'undefined'){
       this._pokemons.next(storagePokemons)
     }
+  }
+  // patch new pokemon to pokemon collection on a trainer(user)
+  public addPokemonToTrainer(pokemon: Pokemon, user: User){
+    //if user already has these pokemon
+    if(user.Pokemon.includes(pokemon)) return
+    // do we need to re-fetch user for pokemon or does this work?
+    user.Pokemon = [...user.Pokemon, pokemon]
+    
+
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "x-api-key": apiKey
+    })
+
+    return this.http.patch<User>(`${apiUsers}/${user.id}`, user, {
+      headers
+    }).subscribe({
+      next: (data: User) => {
+        console.log(data)
+        // update storage
+        StorageUtil.storageSave<User>(StorageKeys.User, user!)
+      },
+      error: (error: HttpErrorResponse) =>{
+        console.log(error)
+      }
+    })
+    
   }
 
   public findAllPokemon(): void {

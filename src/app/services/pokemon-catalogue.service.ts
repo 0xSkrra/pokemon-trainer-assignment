@@ -4,6 +4,7 @@ import { BehaviorSubject, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon/pokemon.model';
 import { PokemonResponse } from '../models/pokemon/pokemonResponse';
+import { StorageUtil } from '../utils/storage.util';
 
 
 const { apiPokemon, apiPokemonImgUrl } = environment;
@@ -20,6 +21,9 @@ export class PokemonCatalogueService {
 
   
   get pokemons(): Pokemon[] {
+    if(this._pokemons.getValue().length < 1){
+      this.findAllPokemon()
+    }
     return this._pokemons.getValue();
   }
 
@@ -31,7 +35,12 @@ export class PokemonCatalogueService {
     return this._loading;
   }
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {
+    const storagePokemons: Pokemon[]|undefined = StorageUtil.storageRead('pokemons')
+    if(typeof storagePokemons !== 'undefined'){
+      this._pokemons.next(storagePokemons)
+    }
+  }
 
   public findAllPokemon(): void {
     this._loading = true;
@@ -53,11 +62,13 @@ export class PokemonCatalogueService {
           })
           // set results 
           this._pokemons.next(pokemons.results)
+          StorageUtil.storageSave('pokemons', pokemons.results)
         },
         error: (error: HttpErrorResponse) => {
           this._error = error.message;
         }
       })
+      
   }
 
 }

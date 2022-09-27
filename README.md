@@ -1,5 +1,7 @@
 # Assignment6 - Pokemon Trainer
 
+<br />
+
 ## Description
 
 ### Login:
@@ -22,6 +24,8 @@
     - Trainer page
     - Pokemon Catalogue
     - Logout
+
+<br />
 
 ## Contributors
 ### Markus Dybedal

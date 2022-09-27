@@ -22,4 +22,14 @@ export class PokemonListComponent implements OnInit {
   hasCollectedPokemon = (pokemon: Pokemon): boolean =>{
     return this.ownedPokemons ? this.ownedPokemons?.some((p) => p.name === pokemon.name) : false
   }
+
+  getId(pokemon: Pokemon){
+    const array = pokemon.url.split('/');
+    const png = array[array.length-1];
+    
+    const array2 = png.split('.');
+    const id = array2[0];
+
+    return id;
+  }
 }

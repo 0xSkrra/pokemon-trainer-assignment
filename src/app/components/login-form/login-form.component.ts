@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user/user.model';
-import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/User/login.service';
+import { UserService } from 'src/app/services/User/user.service';
 
 @Component({
   selector: 'app-login-form',

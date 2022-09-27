@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, map, of } from 'rxjs';
+import { BehaviorSubject, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { StorageKeys } from '../enums/storage-keys.enum';
-import { Pokemon } from '../models/pokemon/pokemon.model';
-import { PokemonResponse } from '../models/pokemon/pokemonResponse';
-import { User } from '../models/user/user.model';
-import { StorageUtil } from '../utils/storage.util';
+import { StorageKeys } from '../../enums/storage-keys.enum';
+import { Pokemon } from '../../models/pokemon/pokemon.model';
+import { PokemonResponse } from '../../models/pokemon/pokemonResponse';
+import { User } from '../../models/user/user.model';
+import { StorageUtil } from '../../utils/storage.util';
 
 
 const { apiPokemon, apiPokemonImgUrl, apiUsers, apiKey} = environment;
@@ -68,13 +68,13 @@ export class PokemonCatalogueService {
       headers
     }).subscribe({
       next: (data: User) => {
-        console.log(data)
         // update storage
         this._collectedPokemons.next(data.Pokemon)
         StorageUtil.storageSave<User>(StorageKeys.User, user!)
       },
       error: (error: HttpErrorResponse) =>{
         console.log(error)
+        this._error = error.message
       }
     })
   }

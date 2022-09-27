@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { StorageKeys } from '../enums/storage-keys.enum';
-import { User } from '../models/user/user.model';
-import { StorageUtil } from '../utils/storage.util';
+import { StorageKeys } from '../../enums/storage-keys.enum';
+import { User } from '../../models/user/user.model';
+import { StorageUtil } from '../../utils/storage.util';
 
 @Injectable({
   providedIn: 'root'

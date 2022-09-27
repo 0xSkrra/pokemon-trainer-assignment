@@ -33,9 +33,11 @@
 
 <br />
 <br />
+
+
 ## Component Tree
 #### view docs/ folder
-
+![component-tree]('https://gitlab.com/Markus4356/pokemontrainer/-/raw/main/docs/componentTreeAngularAssignment6.png')
 
 <br />
 <br />

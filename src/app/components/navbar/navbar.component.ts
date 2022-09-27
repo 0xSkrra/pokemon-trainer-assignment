@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  public onLogout(): void {
+    window.sessionStorage.clear();
+    window.location.reload();
+  }
+  
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }

@@ -16,7 +16,7 @@ export class LandingPage {
     ) {
       // make sure landing page can not be loaded if user is logged in
       if(typeof userService.user !== 'undefined'){
-        router.navigateByUrl("/trainer")
+        router.navigateByUrl("/pokemon-catalogue")
       }
      }
 

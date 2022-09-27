@@ -48,6 +48,7 @@ export class PokemonCatalogueService {
     if(typeof storagePokemons !== 'undefined'){
       this._allPokemons.next(storagePokemons)
     }
+    // init trainers collected pokemons
     const userPokemons: User = StorageUtil.storageRead(StorageKeys.User)!
     this._collectedPokemons.next(userPokemons.Pokemon)
   }
@@ -55,7 +56,7 @@ export class PokemonCatalogueService {
   public addPokemonToTrainer(pokemon: Pokemon, user: User){
     //if user already has these pokemon
     if(this.collectedPokemons.some((p: Pokemon) => p.name === pokemon.name)) return
-    // do we need to re-fetch user for pokemon or does this work?
+    // append pokemon
     user.Pokemon = [...this.collectedPokemons, pokemon]
     
 
@@ -63,7 +64,7 @@ export class PokemonCatalogueService {
       "Content-Type": "application/json",
       "x-api-key": apiKey
     })
-
+    //patch new pokemon
     return this.http.patch<User>(`${apiUsers}/${user.id}`, user, {
       headers
     }).subscribe({
@@ -83,6 +84,7 @@ export class PokemonCatalogueService {
       //if user doesnt have these pokemon
       if(!this.collectedPokemons.some((p) => p.name === pokemon.name)) return
 
+      // filter out pokemon to remove
       user.Pokemon = this.collectedPokemons.filter((p) =>  p.name !== pokemon.name)
   
       const headers = new HttpHeaders({
@@ -94,7 +96,6 @@ export class PokemonCatalogueService {
         headers
       }).subscribe({
         next: (data: User) => {
-          //console.log(data)
           // update storage and state
           this._collectedPokemons.next(data.Pokemon)
           StorageUtil.storageSave<User>(StorageKeys.User, user!)
@@ -105,6 +106,7 @@ export class PokemonCatalogueService {
         }
       })
     }
+  // fetch pokemon collected by trainer
   public getPokemonByTrainer(id: number){
     this._loading = true;
     return this.http.get<Pokemon[]>(`${apiUsers}/${id}`)

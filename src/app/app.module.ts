@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { PokemonCollectionComponent } from './components/pokemon-collection/pokemon-collection.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 
 import { LandingPage } from './pages/landing/landing.page';
@@ -17,7 +16,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonCollectionComponent,
     PokemonListComponent,
     LandingPage,
     TrainerPage,

@@ -12,14 +12,17 @@ import { UserService } from 'src/app/services/user.service';
 export class PokemonListComponent implements OnInit {
 
   @Input() pokemons: Pokemon[] = []
+  // function from parent class to handle pokemon click
   @Input() onPokemonClick!: (pokemon: Pokemon) => void
-  @Input() ownedPokemons?: Pokemon[] 
-  hasCollectedPokemon = (pokemon: Pokemon): boolean =>{
-    return this.ownedPokemons ? this.ownedPokemons?.some((p) => p.name === pokemon.name) : false
-  }
+  @Input() ownedPokemons?: Pokemon[]
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  // helper to set pokemons to collected 
+  hasCollectedPokemon = (pokemon: Pokemon): boolean =>{
+    return this.ownedPokemons ? this.ownedPokemons?.some((p) => p.name === pokemon.name) : false
   }
 }

@@ -22,6 +22,6 @@
             <p>You have not collected any pokemon's yet..</p>
             <p>Go to the Pokemon Catalogue to start your collection!</p>
         </div>
-        <app-pokemon-list [pokemons]="collection"></app-pokemon-list>
+        <app-pokemon-list [onPokemonClick]="myOnPokemonClick" [pokemons]="collection"></app-pokemon-list>
     </div>
 </div>

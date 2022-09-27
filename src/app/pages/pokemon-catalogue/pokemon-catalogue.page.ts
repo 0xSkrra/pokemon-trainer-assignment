@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon/pokemon.model';
+import { User } from 'src/app/models/user/user.model';
 import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PokemonCataloguePage implements OnInit {
   get pokemons(): Pokemon[] {
-    return this.pokemonCatalogueService.pokemons;
+    return this.pokemonCatalogueService.allPokemons;
   }
 
   get loading(): boolean {
@@ -20,9 +21,10 @@ export class PokemonCataloguePage implements OnInit {
   get error(): string {
     return this.pokemonCatalogueService.error;
   }
-  get ownPokemons(): Pokemon[] {
-    return this.userService.user?.Pokemon!
+  get ownedPokemons(): Pokemon[] {
+    return this.pokemonCatalogueService.collectedPokemons
   }
+  
 
   constructor(
     private readonly pokemonCatalogueService: PokemonCatalogueService,
@@ -30,6 +32,11 @@ export class PokemonCataloguePage implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.ownedPokemons)
+  }
+  myOnPokemonClick = (pokemon: Pokemon): void =>{
+    const user: User|undefined = this.userService.user
+    this.pokemonCatalogueService.addPokemonToTrainer(pokemon, user!)
   }
 
 }

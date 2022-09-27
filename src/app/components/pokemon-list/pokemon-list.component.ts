@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon/pokemon.model';
 import { User } from 'src/app/models/user/user.model';
 import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
@@ -11,18 +11,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PokemonListComponent implements OnInit {
 
-  onClick(pokemon: Pokemon): void{
-    const user: User|undefined = this.userService.user
-    this.pokemonCatalogueService.addPokemonToTrainer(pokemon, user!)
-  }
+  @Input() pokemons: Pokemon[] = []
+  @Input() onPokemonClick!: (pokemon: Pokemon) => void
+  @Input() ownedPokemons?: Pokemon[]
 
-  @Input() pokemons: Pokemon[] = [];
-  @Input() ownedPokemons: Pokemon[] = [];
-
-  constructor(
-    private readonly pokemonCatalogueService: PokemonCatalogueService,
-    private readonly userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
+    console.log(this.ownedPokemons)
   }
 }

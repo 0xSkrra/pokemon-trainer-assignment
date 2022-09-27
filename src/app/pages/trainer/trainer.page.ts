@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon/pokemon.model';
 import { User } from 'src/app/models/user/user.model';
+import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -31,10 +32,15 @@ export class TrainerPage implements OnInit {
   }
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private readonly pokemonCatalogueService: PokemonCatalogueService
   ) { }
 
   ngOnInit(): void {
+  }
+  myOnPokemonClick = (pokemon: Pokemon): void =>{
+    const user: User|undefined = this.userService.user
+    this.pokemonCatalogueService.removePokemonFromTrainer(pokemon, user!)
   }
 
 }

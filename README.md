@@ -18,6 +18,11 @@
     - Displays the name and image for the collected pokemon
     - Can remove from collection
 
+### Navbar
+    - Trainer page
+    - Pokemon Catalogue
+    - Logout
+
 ## Contributors
 ### Markus Dybedal
 ### Espen Sjo

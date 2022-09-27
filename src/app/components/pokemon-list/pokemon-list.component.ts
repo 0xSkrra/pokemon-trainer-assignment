@@ -13,11 +13,13 @@ export class PokemonListComponent implements OnInit {
 
   @Input() pokemons: Pokemon[] = []
   @Input() onPokemonClick!: (pokemon: Pokemon) => void
-  @Input() ownedPokemons?: Pokemon[]
+  @Input() ownedPokemons?: Pokemon[] 
+  hasCollectedPokemon = (pokemon: Pokemon): boolean =>{
+    return this.ownedPokemons ? this.ownedPokemons?.some((p) => p.name === pokemon.name) : false
+  }
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.ownedPokemons)
   }
 }

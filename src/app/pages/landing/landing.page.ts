@@ -21,7 +21,7 @@ export class LandingPage {
      }
 
   handleLogin(): void {
-    this.router.navigateByUrl("/trainer")
+    this.router.navigateByUrl("/pokemon-catalogue")
   }
 
 }

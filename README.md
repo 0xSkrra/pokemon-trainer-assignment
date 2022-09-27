@@ -1,4 +1,30 @@
-# Assignment6
+# Assignment6 - Pokemon Trainer
+
+## Description
+
+### Login:
+    - Login with username
+    - Can not access other pages when you are not logged in
+    - Can not access login page when you are logged in
+
+### Pokemon Catalogue
+    - List all the pokemon's name and avatar
+    - Can add pokemon to collection
+    - Indication of pokemon's collected
+    - Remove pokemon from collection
+
+### Trainer
+    - List the pokemon's collected
+    - Displays the name and image for the collected pokemon
+    - Can remove from collection
+
+## Contributors
+### Markus Dybedal
+### Espen Sjo
+
+
+
+# Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
